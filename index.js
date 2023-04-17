@@ -3,18 +3,10 @@ import Express from "express";
 const app = Express();
 
 app.set("view engine","ejs");
+app.use(Express.static("public"));
 
-app.get("/:nome/:lang",(req,res)=>{
-    var nome = req.params.nome;
-    var lang = req.params.lang;
-
-    var exibirMsg = true;
-
-    res.render("index",{
-        nome:nome,
-        lang:lang,
-        msg: exibirMsg
-    });
+app.get("/",(req,res)=>{
+    res.render("index");
 });
 
 app.listen(8080,()=>{
