@@ -1,9 +1,15 @@
 import Express from "express";
+import  BodyParser  from "body-parser";
 
 const app = Express();
+const bodyParser = BodyParser;
 
 app.set("view engine","ejs");
 app.use(Express.static("public"));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+//ROTAS
 
 app.get("/",(req,res)=>{
     res.render("index");
@@ -12,6 +18,13 @@ app.get("/",(req,res)=>{
 app.get("/perguntar",(req,res)=>{
     res.render("perguntar");
 });
+
+//rota para salvar pergunta
+app.post("/salvarpergunta",(req,res)=>{
+    res.send("Pergunta salva com sucesso");
+});
+
+
 
 app.listen(8080,()=>{
     console.log("Server is running on port 8080")
