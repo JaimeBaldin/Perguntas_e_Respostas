@@ -21,7 +21,9 @@ app.get("/perguntar",(req,res)=>{
 
 //rota para salvar pergunta
 app.post("/salvarpergunta",(req,res)=>{
-    res.send("Pergunta salva com sucesso");
+    var titulo = req.body.titulo;
+    var descricao = req.body.descricao;
+    res.send("Pergunta salva com sucesso titulo: "+titulo+" descricao: "+descricao);
 });
 
 
