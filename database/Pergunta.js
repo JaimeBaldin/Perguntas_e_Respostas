@@ -1,5 +1,5 @@
 import Sequelize  from "sequelize";
-import connection from "./database";
+import connection from "./database.js";
 
 const pergunta = connection.define('perguntas',{
     titulo:{
