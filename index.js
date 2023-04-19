@@ -1,8 +1,22 @@
 import Express from "express";
 import  BodyParser  from "body-parser";
+import connection from "./database/database.js";
 
 const app = Express();
 const bodyParser = BodyParser;
+
+
+//database
+connection.authenticate()
+  .then(() => {
+    console.log('Conectado ao MySQL!');
+  })
+  .catch(err => {
+    console.error('Não foi possível conectar ao MySQL:', err);
+  });
+
+
+
 
 app.set("view engine","ejs");
 app.use(Express.static("public"));
