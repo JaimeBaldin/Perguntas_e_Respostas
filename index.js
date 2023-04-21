@@ -5,6 +5,7 @@ import pergunta from "./database/Pergunta.js";
 
 const app = Express();
 const bodyParser = BodyParser;
+const { raw } = bodyParser;
 
 
 //database
@@ -26,12 +27,29 @@ app.use(bodyParser.json());
 
 //ROTAS
 
-app.get("/",(req,res)=>{
-    pergunta.findAll({raw: true}).then(perguntas => {
-       res.render("index",{
-           perguntas: perguntas
-       }); 
+//PAGINA INICIAL
+app.get('/', async (req, res) => {
+  const perguntas = await pergunta.findAll({ raw: true });
+  res.render('index', { perguntas, ordem: 'recentes' })
+});
+
+
+
+//ROTA PARA ORDERNAR PERGUNTAS
+app.post("/ordenarperguntas",(req,res)=>{
+  const {ordem} = req.body;
+  let queryOptions = {};
+  if(ordem === 'recentes'){
+    queryOptions.order = [['createdAt','DESC']];
+  } else {
+    queryOptions.order = [['createdAt','ASC']];
+  }
+  pergunta.findAll({raw: true,  ...queryOptions}).then((perguntas)=>{
+    res.render("index",{
+      perguntas: perguntas,
+      ordem: ordem
     });
+  });
 });
 
 app.get("/perguntar",(req,res)=>{

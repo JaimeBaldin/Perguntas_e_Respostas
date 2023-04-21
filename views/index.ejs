@@ -1,14 +1,25 @@
 <%- include ('partials/header.ejs') %>
 <body>
     <%- include ('partials/navbar.ejs') %> 
-
     <div class="container">
-        <hr>
-        <h1>Perguntas</h1>
         <br>
-        <a href="/perguntar" class="btn btn-primary">Nova pergunta</a>
+        <div class="text-center">
+            <h1>Perguntas Realizadas</h1>
+        </div>
         <hr>
-
+        <form class="form-inline" method="post" action="/ordenarperguntas">
+            <div class="form-group">
+              <label for="ordem-select">Ordenar por:</label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                    <select id="ordem-select" name="ordem" class="form-control">
+                        <option value="recentes" <% if (ordem === 'recentes') { %> selected <% } %>>Mais recentes</option>
+                        <option value="antigas" <% if (ordem === 'antigas') { %> selected <% } %>>Mais antigas</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Ordenar</button>
+          </form>          
+          <hr>
         <% perguntas.forEach(pergunta => { %>
             <br>
             <div class="card">
@@ -21,7 +32,7 @@
                     </button>
                 </div>
             </div>
-        <%})%>
+        <% }) %>
     </div> 
 </body>
 <%- include ('partials/footer.ejs') %>
