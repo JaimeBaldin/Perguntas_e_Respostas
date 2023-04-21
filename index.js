@@ -27,7 +27,12 @@ app.use(bodyParser.json());
 //ROTAS
 
 app.get("/",(req,res)=>{
-    res.render("index");
+    pergunta.findAll().then(perguntas => {
+        res.render("index",{
+            perguntas: perguntas
+        });
+    
+    });
 });
 
 app.get("/perguntar",(req,res)=>{
@@ -38,7 +43,12 @@ app.get("/perguntar",(req,res)=>{
 app.post("/salvarpergunta",(req,res)=>{
     var titulo = req.body.titulo;
     var descricao = req.body.descricao;
-    res.send("Pergunta salva com sucesso titulo: "+titulo+" descricao: "+descricao);
+    pergunta.create({
+      titulo: titulo,
+      descricao: descricao
+    }).then(()=>{
+        res.redirect("/");
+    });
 });
 
 
