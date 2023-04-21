@@ -27,11 +27,10 @@ app.use(bodyParser.json());
 //ROTAS
 
 app.get("/",(req,res)=>{
-    pergunta.findAll().then(perguntas => {
-        res.render("index",{
-            perguntas: perguntas
-        });
-    
+    pergunta.findAll({raw: true}).then(perguntas => {
+       res.render("index",{
+           perguntas: perguntas
+       }); 
     });
 });
 
