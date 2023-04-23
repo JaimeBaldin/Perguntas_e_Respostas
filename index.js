@@ -69,6 +69,24 @@ app.post("/salvarpergunta",(req,res)=>{
 });
 
 
+app.get("/pergunta/:id",(req,res)=>{
+   const {id} = req.params;
+  pergunta.findOne({
+    where: {id: id}
+  }).then((pergunta)=>{
+    if(pergunta != undefined){
+      res.render("pergunta",{
+        pergunta: pergunta
+      });
+    }else{
+      res.redirect("/");
+    }
+  });
+});
+
+
+
+
 
 app.listen(8080,()=>{
     console.log("Server is running on port 8080")
