@@ -2,6 +2,7 @@ import Express from "express";
 import  BodyParser  from "body-parser";
 import connection from "./database/database.js";
 import pergunta from "./database/Pergunta.js";
+import resposta from "./database/Resposta.js";
 
 const app = Express();
 const bodyParser = BodyParser;
